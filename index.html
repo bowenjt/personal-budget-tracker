@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Personal Budget Tracker</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="page">
+
+    <header class="app-header">
+      <h1>Budget Tracker</h1>
+      <p class="app-subtitle">Track income and expenses — everything stays saved in this browser.</p>
+    </header>
+
+    <!-- Summary tiles -->
+    <section class="summary-grid" aria-label="Summary">
+      <div class="stat-tile">
+        <span class="stat-label">Income</span>
+        <span class="stat-value" id="stat-income">$0.00</span>
+      </div>
+      <div class="stat-tile">
+        <span class="stat-label">Expenses</span>
+        <span class="stat-value" id="stat-expenses">$0.00</span>
+      </div>
+      <div class="stat-tile" id="balance-tile">
+        <span class="stat-label">Balance</span>
+        <span class="stat-value" id="stat-balance">$0.00</span>
+      </div>
+    </section>
+
+    <div class="main-grid">
+
+      <!-- Add transaction -->
+      <section class="card" aria-label="Add transaction">
+        <h2>Add a transaction</h2>
+        <form id="transaction-form">
+
+          <div class="type-toggle" role="radiogroup" aria-label="Transaction type">
+            <button type="button" class="type-btn active" data-type="expense" id="btn-expense">Expense</button>
+            <button type="button" class="type-btn" data-type="income" id="btn-income">Income</button>
+          </div>
+
+          <div class="field">
+            <label for="description">Description</label>
+            <input type="text" id="description" name="description" placeholder="e.g. Groceries" required>
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="amount">Amount</label>
+              <input type="number" id="amount" name="amount" placeholder="0.00" min="0.01" step="0.01" required>
+            </div>
+            <div class="field">
+              <label for="date">Date</label>
+              <input type="date" id="date" name="date" required>
+            </div>
+          </div>
+
+          <div class="field" id="category-field">
+            <label for="category">Category</label>
+            <select id="category" name="category"></select>
+          </div>
+
+          <button type="submit" class="submit-btn">Add transaction</button>
+        </form>
+      </section>
+
+      <!-- Category breakdown -->
+      <section class="card" aria-label="Spending by category">
+        <h2>Spending by category</h2>
+        <div id="category-breakdown" class="category-breakdown">
+          <p class="empty-note" id="category-empty">No expenses yet — add one to see the breakdown.</p>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- Transaction list -->
+    <section class="card" aria-label="Transactions">
+      <div class="list-header">
+        <h2>Transactions</h2>
+        <div class="list-controls">
+          <input type="search" id="search-input" placeholder="Search description…" aria-label="Search transactions">
+          <div class="filter-group" role="radiogroup" aria-label="Filter by type">
+            <button type="button" class="filter-btn active" data-filter="all">All</button>
+            <button type="button" class="filter-btn" data-filter="income">Income</button>
+            <button type="button" class="filter-btn" data-filter="expense">Expense</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table id="transaction-table">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Description</th>
+              <th>Category</th>
+              <th class="col-amount">Amount</th>
+              <th class="col-actions"></th>
+            </tr>
+          </thead>
+          <tbody id="transaction-tbody"></tbody>
+        </table>
+        <p class="empty-note" id="table-empty">No transactions yet. Add your first one above.</p>
+      </div>
+
+      <div class="list-footer">
+        <span id="transaction-count" class="muted-note"></span>
+        <div class="list-footer-actions">
+          <button type="button" id="export-btn" class="ghost-btn">Export CSV</button>
+          <button type="button" id="clear-btn" class="ghost-btn danger">Clear all data</button>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
